@@ -74,10 +74,21 @@ h1, h2, h3, p, label,
     transform: translateY(-2px);
 }
 
-.stTextInput input, .stTextArea textarea {
+.stTextInput input,
+.stTextArea textarea,
+.stTextInput input[type="email"],
+.stTextInput input[type="password"] {
+    color: #172554 !important;
+    background-color: #ffffff !important;
     border: 1px solid #deddf5;
     border-radius: 12px;
-    background-color: #ffffff;
+    -webkit-text-fill-color: #172554 !important;
+}
+
+.stTextInput input::placeholder,
+.stTextArea textarea::placeholder {
+    color: #64748b !important;
+    opacity: 1 !important;
 }
 
 .stTextInput input:focus, .stTextArea textarea:focus {
