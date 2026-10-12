@@ -47,7 +47,13 @@ h1 {
     letter-spacing: -1.5px;
 }
 
-h2, h3, p, label {
+h1, h2, h3, p, label,
+.stMarkdown, .stMarkdown p,
+.stTextInput label, .stTextArea label,
+.stTabs [data-baseweb="tab"] {
+    color: #26365d !important;
+}
+{
     color: #26365d;
 }
 
