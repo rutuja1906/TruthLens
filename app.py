@@ -279,36 +279,38 @@ if st.button("Analyze Article", type="primary"):
             confidence = float(max(probabilities)) * 100
 
             
-if prediction == 1:
-    st.markdown(
-        "<div style='background:#fff0f0;padding:20px;border-radius:15px;"
-        "border:1px solid #ffcaca;color:#a52222;font-size:22px;"
-        "font-weight:700;'>⚠️ FAKE-like</div>",
-        unsafe_allow_html=True
-    )
-else:
-    st.markdown(
-        "<div style='background:#eafaf1;padding:20px;border-radius:15px;"
-        "border:1px solid #b9ebce;color:#167344;font-size:22px;"
-        "font-weight:700;'>✓ REAL-like</div>",
-        unsafe_allow_html=True
-    )
+
+            if prediction == 1:
+                st.markdown(
+                    "<div style='background:#fff0f0;padding:20px;border-radius:15px;"
+                    "border:1px solid #ffcaca;color:#a52222;font-size:22px;"
+                    "font-weight:700;'>⚠️ FAKE-like</div>",
+                    unsafe_allow_html=True
+                )
+            else:
+                st.markdown(
+                    "<div style='background:#eafaf1;padding:20px;border-radius:15px;"
+                    "border:1px solid #b9ebce;color:#167344;font-size:22px;"
+                    "font-weight:700;'>✓ REAL-like</div>",
+                    unsafe_allow_html=True
+                )
 
 
             
-st.markdown("### 📊 Analysis Confidence")
-st.progress(min(confidence / 100, 1.0))
-st.markdown(
-    f"<p style='font-size:24px;font-weight:700;color:#6965f5;'>{confidence:.1f}%</p>",
-    unsafe_allow_html=True
-)
 
+            st.markdown("### 📊 Analysis Confidence")
+            st.progress(min(confidence / 100, 1.0))
+            st.markdown(
+                f"<p style='font-size:24px;font-weight:700;color:#6965f5;'>{confidence:.1f}%</p>",
+                unsafe_allow_html=True
+            )
             st.caption(
                 "Confidence reflects the model's class probabilities, "
                 "not the probability that the article is factually true."
             )
         except Exception as e:
             st.error(f"Could not analyze the article: {e}")
+
 
 
 st.divider()
