@@ -18,12 +18,12 @@ LOGIN_URL = (
 
     
 st.set_page_config(
-    page_title="TruthLens AI",
-    page_icon="🔎",
+    page_title="Verilens",
+    page_icon="✓",
     layout="centered"
 )
 
-st.markdown("<h1 style='text-align:center;'>🔎 TruthLens AI</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align:center;'>🔎 Verilens</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align:center;font-size:20px;'>Smarter Checks. Safer News.</p>", unsafe_allow_html=True)
 
 st.markdown("""
@@ -169,7 +169,7 @@ def load_model():
     return joblib.load(MODEL_PATH)
 
 
-st.title("🔎 TruthLens AI")
+st.title("✓ Verilens")
 st.subheader("AI-powered News Classification")
 
 # LOGIN / REGISTER
@@ -177,7 +177,7 @@ if "user_email" not in st.session_state:
     st.session_state.user_email = None
 
 if not st.session_state.user_email:
-    st.write("Log in or create an account to use TruthLens AI.")
+    st.write("Log in or create an account to use Verilens.")
 
     login_tab, register_tab = st.tabs(["Login", "Register"])
 
@@ -335,7 +335,7 @@ st.markdown(
     """
     <div style="text-align:center;padding:15px 0;color:#77769a;">
         <p style="font-size:16px;font-weight:600;color:#514bdc;">
-            🔎 TruthLens AI
+            🔎 Verilens
         </p>
         <p>Think critically. Read responsibly.</p>
         <p style="font-size:12px;">
