@@ -16,11 +16,99 @@ LOGIN_URL = (
     f"?key={FIREBASE_API_KEY}"
 )
 
+    
 st.set_page_config(
     page_title="TruthLens AI",
     page_icon="🔎",
     layout="centered"
 )
+
+st.markdown("<h1 style='text-align:center;'>🔎 TruthLens AI</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;font-size:20px;'>Smarter Checks. Safer News.</p>", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+.stApp {
+    background: linear-gradient(135deg, #f8f7ff 0%, #ffffff 55%, #f0f4ff 100%);
+    font-family: 'Inter', sans-serif;
+}
+
+.block-container {
+    max-width: 1000px;
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+}
+
+h1 {
+    color: #172554;
+    font-weight: 800 !important;
+    letter-spacing: -1.5px;
+}
+
+h2, h3, p, label {
+    color: #26365d;
+}
+
+.stButton > button {
+    background: linear-gradient(90deg, #6965f5, #8980ff);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.65rem 1.2rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(90deg, #514bdc, #7165ee);
+    color: white;
+    border: none;
+    transform: translateY(-2px);
+}
+
+.stTextInput input, .stTextArea textarea {
+    border: 1px solid #deddf5;
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+.stTextInput input:focus, .stTextArea textarea:focus {
+    border-color: #7771f5;
+    box-shadow: 0 0 0 2px #e7e5ff;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 12px;
+    border-bottom: 1px solid #e7e7f5;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 10px 10px 0 0;
+    padding: 10px 20px;
+}
+
+div[data-testid="stMetric"] {
+    background: white;
+    border: 1px solid #e7e7f5;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(68, 63, 150, 0.06);
+}
+
+div[data-testid="stForm"] {
+    background: white;
+    padding: 22px;
+    border: 1px solid #e7e7f5;
+    border-radius: 16px;
+}
+
+hr {
+    border-color: #e6e5f5;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 def firebase_auth(url, email, password):
@@ -168,11 +256,17 @@ st.warning(
     "Its prediction can be wrong and does not prove whether a claim is true."
 )
 
+
+st.markdown("### 📰 Analyze a News Article")
+st.caption("Paste the article below and let AI analyze its writing patterns.")
+
 article = st.text_area(
-    "Paste a news article",
-    height=220,
-    placeholder="Paste the article text here..."
+    "Article text",
+    height=250,
+    placeholder="Paste your news article here...",
+    label_visibility="collapsed"
 )
+
 
 if st.button("Analyze Article", type="primary"):
     if len(article.strip()) < 50:
@@ -184,12 +278,31 @@ if st.button("Analyze Article", type="primary"):
             probabilities = model.predict_proba([article])[0]
             confidence = float(max(probabilities)) * 100
 
-            if prediction == 1:
-                st.error("Prediction: FAKE-like")
-            else:
-                st.success("Prediction: REAL-like")
+            
+if prediction == 1:
+    st.markdown(
+        "<div style='background:#fff0f0;padding:20px;border-radius:15px;"
+        "border:1px solid #ffcaca;color:#a52222;font-size:22px;"
+        "font-weight:700;'>⚠️ FAKE-like</div>",
+        unsafe_allow_html=True
+    )
+else:
+    st.markdown(
+        "<div style='background:#eafaf1;padding:20px;border-radius:15px;"
+        "border:1px solid #b9ebce;color:#167344;font-size:22px;"
+        "font-weight:700;'>✓ REAL-like</div>",
+        unsafe_allow_html=True
+    )
 
-            st.metric("Model confidence", f"{confidence:.1f}%")
+
+            
+st.markdown("### 📊 Analysis Confidence")
+st.progress(min(confidence / 100, 1.0))
+st.markdown(
+    f"<p style='font-size:24px;font-weight:700;color:#6965f5;'>{confidence:.1f}%</p>",
+    unsafe_allow_html=True
+)
+
             st.caption(
                 "Confidence reflects the model's class probabilities, "
                 "not the probability that the article is factually true."
@@ -197,5 +310,19 @@ if st.button("Analyze Article", type="primary"):
         except Exception as e:
             st.error(f"Could not analyze the article: {e}")
 
+
 st.divider()
-st.caption("TruthLens AI | SDG 16: Peace, Justice and Strong Institutions")
+st.markdown(
+    """
+    <div style="text-align:center;padding:15px 0;color:#77769a;">
+        <p style="font-size:16px;font-weight:600;color:#514bdc;">
+            🔎 TruthLens AI
+        </p>
+        <p>Think critically. Read responsibly.</p>
+        <p style="font-size:12px;">
+            SDG 16 · Peace, Justice and Strong Institutions
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
